@@ -5,7 +5,6 @@ import {
   THourlyWeather,
   TDailyWeather
 } from '@/types/weather-types';
-import shootAlert from '@/utils/shoot-alert';
 
 const weatherDescriptions: { [key: number]: string } = {
   0: 'Clear sky',
@@ -102,7 +101,7 @@ export const fetchWeather = async (latitude: number, longitude: number) => {
     );
     return { currentWeather, hourlyWeather, dailyWeather };
   } catch (error) {
-    shootAlert('Oops!', 'Failed to fetch weather data.');
+    //shootAlert('Error!', 'Failed to fetch weather data.');
     throw error;
   }
 };

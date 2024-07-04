@@ -14,6 +14,7 @@ import { getCities } from '@/utils/api/fetch-cities';
 import { useWeather } from '@/contexts/WeatherContext';
 import { TCity } from '@/types/geo-types';
 import shootAlert from '@/utils/shoot-alert';
+import { ThemedText } from './ui/ThemedText';
 
 const MIN_GEO_LENGTH = 2;
 const MAX_GEO_LENGTH = 100;
@@ -34,7 +35,7 @@ const SearchBar = () => {
       }
       const cities = await getCities(text);
       if (cities) {
-        setCities(cities);
+        setCities(cities.slice(0, 5)); // todo show no more than 5 suggestions
       } else {
         setCities([]);
         shootAlert(
@@ -192,7 +193,8 @@ const SearchBar = () => {
               onPress={() => handleCityPress(item)}
             >
               <Text style={styles.cityText}>
-                {item.name}, {item.admin1}, {item.country}
+                <ThemedText type="defaultSemiBold">{item.name}</ThemedText>,{' '}
+                {item.admin1}, {item.country}
               </Text>
             </Pressable>
           )}

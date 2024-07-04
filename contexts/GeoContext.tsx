@@ -51,7 +51,6 @@ export const GeoProvider: FC<{ children: ReactNode }> = ({
       };
 
       setDeviceGeoPosition(newDeviceGeoPosition);
-      console.log('Location received:', `${city} (${latitude}, ${longitude})`);
     } catch (error) {
       shootAlert('Error', 'Failed to get location.');
     }

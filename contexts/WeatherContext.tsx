@@ -6,6 +6,7 @@ import {
   THourlyWeather,
   TDailyWeather
 } from '@/types/weather-types';
+import shootAlert from '@/utils/shoot-alert';
 
 type WeatherContextType = {
   current: TCurrentWeather | null;
@@ -36,7 +37,7 @@ export const WeatherProvider: FC<{ children: ReactNode }> = ({
       setHourly(hourlyWeather);
       setDaily(dailyWeather);
     } catch (error) {
-      console.error('Error fetching weather data:', error);
+      shootAlert('Error', 'Failed to fetch weather data.');
     }
   };
 

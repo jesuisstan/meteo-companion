@@ -16,6 +16,7 @@ import WeeklyScreen from './weekly';
 import SearchBar from '@/components/SearchBar';
 import { useGeo } from '@/contexts/GeoContext';
 import { useWeather } from '@/contexts/WeatherContext';
+import shootAlert from '@/utils/shoot-alert';
 
 const initialLayout = { width: Dimensions.get('window').width };
 const windowHeight = Dimensions.get('window').height;
@@ -43,7 +44,7 @@ const TabLayout = () => {
             deviceGeoPosition!.longitude
           );
       } catch (error) {
-        console.error('Error fetching location:', error);
+        shootAlert('Error', 'Failed to get location.');
       }
     };
 

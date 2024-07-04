@@ -4,7 +4,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 import { View, StyleSheet, StatusBar } from 'react-native';
-import { C42_GREEN_DARK } from '@/style/Colors';
+
+import { C42_VIOLET } from '@/style/Colors';
 import { GeoProvider } from '@/contexts/GeoContext';
 import { WeatherProvider } from '@/contexts/WeatherContext';
 
@@ -32,7 +33,7 @@ const RootLayout = () => {
         <View style={styles.container}>
           <StatusBar
             animated={true}
-            backgroundColor={C42_GREEN_DARK}
+            backgroundColor={C42_VIOLET}
             barStyle={'default'}
             showHideTransition={'slide'}
             hidden={false}

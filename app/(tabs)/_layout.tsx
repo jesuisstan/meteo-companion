@@ -26,7 +26,7 @@ type State = NavigationState<RouteProps>;
 const TabLayout = () => {
   const [index, setIndex] = useState(0);
   const routes = [
-    { key: 'currently', title: 'Currently', icon: 'home' },
+    { key: 'currently', title: 'Currently', icon: 'pulse' },
     { key: 'today', title: 'Today', icon: 'today' },
     { key: 'weekly', title: 'Weekly', icon: 'calendar' }
   ];
@@ -73,7 +73,7 @@ const TabLayout = () => {
     <Ionicons
       name={focused ? (route.icon as any) : (`${route.icon}-outline` as any)}
       size={21}
-      color={focused ? colors42.C42_ORANGE_DARK : colors42.C42_TEXT}
+      color={focused ? colors42.C42_GREEN_DARK : colors42.C42_TEXT}
     />
   );
 
@@ -110,18 +110,18 @@ const TabLayout = () => {
 const styles = StyleSheet.create({
   header: {
     height: 100,
-    backgroundColor: colors42.C42_GREEN_DARK,
+    backgroundColor: colors42.C42_VIOLET,
     zIndex: 1
   },
   container: {
     flex: 1
   },
   tabBar: {
-    backgroundColor: colors42.C42_GREEN_DARK,
+    backgroundColor: colors42.C42_VIOLET,
     paddingTop: 5
   },
   indicator: {
-    backgroundColor: colors42.C42_ORANGE_DARK
+    backgroundColor: colors42.C42_GREEN_DARK
   },
   label: {
     fontSize: 10,

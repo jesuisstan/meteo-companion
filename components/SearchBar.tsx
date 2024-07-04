@@ -9,7 +9,7 @@ import {
   Text
 } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { C42_TEXT, C42_ORANGE_DARK, C42_GREY } from '@/style/Colors';
+import { C42_TEXT, C42_GREEN_DARK, C42_GREY } from '@/style/Colors';
 import { useGeo } from '@/contexts/GeoContext';
 import { getCities } from '@/api/fetch-cities';
 import { useWeather } from '@/contexts/WeatherContext';
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     color: C42_TEXT
   },
   inputFocused: {
-    borderColor: C42_ORANGE_DARK
+    borderColor: C42_GREEN_DARK
   },
   inputWithText: {
     fontWeight: 'bold'

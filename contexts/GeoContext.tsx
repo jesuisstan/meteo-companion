@@ -1,8 +1,8 @@
 import { createContext, useContext, useState, ReactNode, FC } from 'react';
 import * as Location from 'expo-location';
-import { Alert } from 'react-native';
 
 import { TGeoContextType } from '@/types/geo-types';
+import shootAlert from '@/utils/shoot-alert';
 
 const GeoContext = createContext<TGeoContextType | undefined>(undefined);
 
@@ -23,9 +23,9 @@ export const GeoProvider: FC<{ children: ReactNode }> = ({
     try {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        Alert.alert(
-          'Permission to access location was denied',
-          'You can still enter a location manually.'
+        shootAlert(
+          'Permission denied!',
+          'Permission to access location was denied. You can still enter a location manually.'
         );
         return;
       }
@@ -53,8 +53,7 @@ export const GeoProvider: FC<{ children: ReactNode }> = ({
       setDeviceGeoPosition(newDeviceGeoPosition);
       console.log('Location received:', `${city} (${latitude}, ${longitude})`);
     } catch (error) {
-      Alert.alert('Error', 'Failed to get location.');
-      console.error('Error fetching location:', error);
+      shootAlert('Error', 'Failed to get location.');
     }
   };
 

@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode, FC } from 'react';
 
-import { fetchWeather } from '@/api/fetch-weather';
+import { fetchWeather } from '@/utils/api/fetch-weather';
 import {
   TCurrentWeather,
   THourlyWeather,

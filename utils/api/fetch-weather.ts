@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { Alert } from 'react-native';
 
 import {
   TCurrentWeather,
   THourlyWeather,
   TDailyWeather
 } from '@/types/weather-types';
+import shootAlert from '@/utils/shoot-alert';
 
 const weatherDescriptions: { [key: number]: string } = {
   0: 'Clear sky',
@@ -102,8 +102,7 @@ export const fetchWeather = async (latitude: number, longitude: number) => {
     );
     return { currentWeather, hourlyWeather, dailyWeather };
   } catch (error) {
-    Alert.alert('Oops!', 'Failed to fetch weather data.');
-    console.error('Error fetching weather data:', error);
+    shootAlert('Oops!', 'Failed to fetch weather data.');
     throw error;
   }
 };

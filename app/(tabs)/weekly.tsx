@@ -1,7 +1,7 @@
 import { StyleSheet, ScrollView, Text } from 'react-native';
 
-import { ThemedText } from '@/components/ThemedText';
-import ThemedView from '@/components/ThemedView';
+import { ThemedText } from '@/components/ui/ThemedText';
+import ThemedView from '@/components/ui/ThemedView';
 import { useGeo } from '@/contexts/GeoContext';
 import { useWeather } from '@/contexts/WeatherContext';
 

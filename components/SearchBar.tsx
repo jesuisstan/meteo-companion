@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import {
-  Alert,
   View,
   StyleSheet,
   TextInput,
@@ -11,9 +10,10 @@ import {
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { C42_TEXT, C42_GREEN_DARK, C42_GREY } from '@/style/Colors';
 import { useGeo } from '@/contexts/GeoContext';
-import { getCities } from '@/api/fetch-cities';
+import { getCities } from '@/utils/api/fetch-cities';
 import { useWeather } from '@/contexts/WeatherContext';
 import { TCity } from '@/types/geo-types';
+import shootAlert from '@/utils/shoot-alert';
 
 const MIN_GEO_LENGTH = 2;
 const MAX_GEO_LENGTH = 100;
@@ -37,16 +37,16 @@ const SearchBar = () => {
         setCities(cities);
       } else {
         setCities([]);
-        Alert.alert(
+        shootAlert(
           'Oops!',
-          'Could not find any results for the supplied address or coordinates'
+          'Could not find any results for the supplied address or coordinates.'
         );
       }
     } catch (error) {
       setCities([]);
-      Alert.alert(
+      shootAlert(
         'Error',
-        'The service connection is lost. Please check your internet connection or try again later'
+        'The service connection is lost. Please check your internet connection or try again later.'
       );
     }
   };
@@ -61,13 +61,13 @@ const SearchBar = () => {
           setCities([]);
         }
       } else {
-        Alert.alert(
-          'Invalid Character',
+        shootAlert(
+          'Invalid Character!',
           'Please avoid using special characters in the geo name.'
         );
       }
     } else {
-      Alert.alert(
+      shootAlert(
         'Maximum Length Reached',
         `Geo name cannot exceed ${MAX_GEO_LENGTH} characters.`
       );
@@ -80,7 +80,6 @@ const SearchBar = () => {
   };
 
   const handleTextSubmit = async (searchText: string) => {
-    console.log('Search text:', searchText);
     if (!searchText) return;
 
     try {
@@ -102,16 +101,16 @@ const SearchBar = () => {
         });
       } else {
         setCities([]);
-        Alert.alert(
+        shootAlert(
           'Oops!',
-          'Could not find any results for the supplied address or coordinates'
+          'Could not find any results for the supplied address or coordinates.'
         );
       }
     } catch (error) {
       setCities([]);
-      Alert.alert(
+      shootAlert(
         'Error',
-        'The service connection is lost. Please check your internet connection or try again later'
+        'The service connection is lost. Please check your internet connection or try again later.'
       );
     }
 
@@ -124,7 +123,6 @@ const SearchBar = () => {
   };
 
   const handleCityPress = (city: any) => {
-    console.log('City selected:', city.name);
     setSearchText(city.name);
     setCities([]);
     setDeviceGeoPosition({

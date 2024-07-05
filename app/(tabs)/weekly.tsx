@@ -11,17 +11,17 @@ const WeeklyScreen = () => {
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedText type="title">Weekly</ThemedText>
       {deviceGeoPosition && (
         <>
-          <ThemedText type="subtitle">{deviceGeoPosition?.city}</ThemedText>
-          <ThemedText type="defaultSemiBold">
-            [{deviceGeoPosition?.region ? `${deviceGeoPosition.region}, ` : ''}
-            {deviceGeoPosition?.country}]
+          <ThemedText type="title">{deviceGeoPosition?.city}</ThemedText>
+          <ThemedText type="subtitle">
+            {deviceGeoPosition?.region ? `${deviceGeoPosition.region}, ` : ''}
+            {deviceGeoPosition?.country}
           </ThemedText>
           <ThemedText type="default">
             ({deviceGeoPosition?.latitude}, {deviceGeoPosition?.longitude})
           </ThemedText>
+
           <ScrollView style={styles.scrollView}>
             {daily &&
               daily.map((item, index) => (

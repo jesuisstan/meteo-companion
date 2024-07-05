@@ -11,17 +11,17 @@ const TodayScreen = () => {
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedText type="title">Today</ThemedText>
       {deviceGeoPosition && (
         <>
-          <ThemedText type="subtitle">{deviceGeoPosition?.city}</ThemedText>
-          <ThemedText type="defaultSemiBold">
-            [{deviceGeoPosition?.region ? `${deviceGeoPosition.region}, ` : ''}
-            {deviceGeoPosition?.country}]
+          <ThemedText type="title">{deviceGeoPosition?.city}</ThemedText>
+          <ThemedText type="subtitle">
+            {deviceGeoPosition?.region ? `${deviceGeoPosition.region}, ` : ''}
+            {deviceGeoPosition?.country}
           </ThemedText>
           <ThemedText type="default">
             ({deviceGeoPosition?.latitude}, {deviceGeoPosition?.longitude})
           </ThemedText>
+
           <ScrollView style={styles.scrollView}>
             {hourly &&
               hourly.map((item, index) => (

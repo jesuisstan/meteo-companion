@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { View, Dimensions, StyleSheet } from 'react-native';
+import { View, Dimensions, ImageBackground, StyleSheet } from 'react-native';
 import {
   TabView,
   TabBar,
@@ -96,14 +96,19 @@ const TabLayout = () => {
       <View style={[styles.header]}>
         <SearchBar />
       </View>
-      <TabView
-        navigationState={{ index, routes }}
-        renderScene={windowHeight ? renderScene : () => null}
-        onIndexChange={setIndex}
-        initialLayout={initialLayout}
-        renderTabBar={renderTabBar}
-        tabBarPosition="bottom"
-      />
+      <ImageBackground
+        source={require('../../assets/images/background.jpg')}
+        style={styles.imageBackground}
+      >
+        <TabView
+          navigationState={{ index, routes }}
+          renderScene={windowHeight ? renderScene : () => null}
+          onIndexChange={setIndex}
+          initialLayout={initialLayout}
+          renderTabBar={renderTabBar}
+          tabBarPosition="bottom"
+        />
+      </ImageBackground>
     </View>
   );
 };
@@ -116,6 +121,10 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1
+  },
+  imageBackground: {
+    flex: 1,
+    resizeMode: 'cover'
   },
   tabBar: {
     backgroundColor: colors42.C42_VIOLET,

@@ -34,7 +34,7 @@ const RootLayout = () => {
           <StatusBar
             animated={true}
             backgroundColor={C42_VIOLET}
-            barStyle={'default'}
+            barStyle={'dark-content'}
             showHideTransition={'slide'}
             hidden={false}
           />

@@ -14,7 +14,7 @@ type TWeatherSingleCardProps = {
     temperature: string;
     speed: string;
   };
-  time?: string;
+  hour?: string;
   style?: object;
 };
 
@@ -24,15 +24,15 @@ const WeatherSingleCard = ({
   description,
   windSpeed,
   units,
-  time,
+  hour,
   style
 }: TWeatherSingleCardProps) => {
   return (
     <View style={[styles.weather, style]}>
-      {time && <ThemedText type="subtitle">{time}</ThemedText>}
+      {hour && <ThemedText type="subtitle">{hour}</ThemedText>}
 
       <View style={styles.weatherDescription}>
-        {getWeatherIcon(weatherCode)}
+        {getWeatherIcon(weatherCode, hour)}
         <ThemedText type="default">{description}</ThemedText>
       </View>
 

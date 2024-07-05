@@ -26,6 +26,7 @@ export const fetchWeather = async (latitude: number, longitude: number) => {
 
     // Current Weather
     const currentWeather: TCurrentWeather = {
+      hour: new Date(data.current_weather.time).toISOString().slice(11, 16), // Extracting HH:MM from ISO timestamp
       temperature: data.current_weather.temperature,
       weatherCode: data.current_weather.weathercode,
       description: weatherDescriptions[data.current_weather.weathercode],

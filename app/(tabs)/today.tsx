@@ -40,7 +40,7 @@ const TodayScreen = () => {
                 description={item.description}
                 windSpeed={item.windSpeed}
                 units={item.units}
-                time={item.hour}
+                hour={item.hour}
                 style={styles.card}
               />
             ))}

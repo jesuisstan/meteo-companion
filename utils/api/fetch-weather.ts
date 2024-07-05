@@ -44,7 +44,7 @@ export const fetchWeather = async (latitude: number, longitude: number) => {
           acc.push({
             hour: time.slice(11, 16), // Extracting HH:MM from ISO timestamp
             temperature: data.hourly.temperature_2m[index],
-            weatherCode: data.hourly.weathercode,
+            weatherCode: data.hourly.weathercode[index],
             description: weatherDescriptions[data.hourly.weathercode[index]],
             windSpeed: data.hourly.windspeed_10m[index],
             units: {
@@ -64,7 +64,7 @@ export const fetchWeather = async (latitude: number, longitude: number) => {
         date: time,
         minTemperature: data.daily.temperature_2m_min[index],
         maxTemperature: data.daily.temperature_2m_max[index],
-        weatherCode: data.daily.weathercode,
+        weatherCode: data.daily.weathercode[index],
         description: weatherDescriptions[data.daily.weathercode[index]],
         units: {
           minTemperature: data.daily_units.temperature_2m_min,

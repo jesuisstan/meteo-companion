@@ -5,6 +5,7 @@ import { useGeo } from '@/contexts/GeoContext';
 import { useWeather } from '@/contexts/WeatherContext';
 import WeatherHeader from '@/components/WeatherHeader';
 import Spinner from '@/components/ui/Spinner';
+import WeatherSingleCard from '@/components/WeatherSingleCard';
 
 const TodayScreen = () => {
   const { geoPosition } = useGeo();
@@ -17,19 +18,36 @@ const TodayScreen = () => {
       ) : (
         <Spinner size={21} />
       )}
-      {hourly && (
+      {hourly ? (
         <>
           <ScrollView style={styles.scrollView}>
-            {hourly &&
-              hourly.map((item, index) => (
-                <Text key={index} style={styles.hourlyItem}>
-                  {item.hour}: {item.temperature} {item?.units.temperature},{' '}
-                  {item.description}, wind speed: {item.windSpeed}{' '}
-                  {item?.units.speed}
-                </Text>
-              ))}
+            <Text style={styles.hourlyItem}>TABLE</Text>
+            <Text style={styles.hourlyItem}>TABLE</Text>
+            <Text style={styles.hourlyItem}>TABLE</Text>
+            <Text style={styles.hourlyItem}>TABLE</Text>
+          </ScrollView>
+
+          <ScrollView
+            style={styles.scrollView}
+            horizontal={true}
+            showsHorizontalScrollIndicator={true}
+          >
+            {hourly.map((item, index) => (
+              <WeatherSingleCard
+                key={index}
+                temperature={item.temperature}
+                weatherCode={item.weatherCode}
+                description={item.description}
+                windSpeed={item.windSpeed}
+                units={item.units}
+                time={item.hour}
+                style={styles.card}
+              />
+            ))}
           </ScrollView>
         </>
+      ) : (
+        <Spinner size={21} />
       )}
     </ThemedView>
   );
@@ -47,6 +65,10 @@ const styles = StyleSheet.create({
   scrollView: {
     width: '100%',
     marginTop: 10
+  },
+  card: {
+    transform: [{ scale: 0.5 }],
+    marginRight: 10
   },
   hourlyItem: {
     paddingVertical: 8,

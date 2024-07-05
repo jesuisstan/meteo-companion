@@ -1,37 +1,33 @@
 import { StyleSheet } from 'react-native';
 
-import { ThemedText } from '@/components/ui/ThemedText';
 import ThemedView from '@/components/ui/ThemedView';
 import { useGeo } from '@/contexts/GeoContext';
 import { useWeather } from '@/contexts/WeatherContext';
+import WeatherHeader from '@/components/WeatherHeader';
+import Spinner from '@/components/ui/Spinner';
+import WeatherSingleCard from '@/components/WeatherSingleCard';
 
 const CurrentlyScreen = () => {
-  const { deviceGeoPosition } = useGeo();
+  const { geoPosition } = useGeo();
   const { current } = useWeather();
 
   return (
     <ThemedView style={[styles.container]}>
-      {deviceGeoPosition && (
-        <>
-          <ThemedText type="title">{deviceGeoPosition?.city}</ThemedText>
-          <ThemedText type="subtitle">
-            {deviceGeoPosition?.region ? `${deviceGeoPosition.region}, ` : ''}
-            {deviceGeoPosition?.country}
-          </ThemedText>
-          <ThemedText type="default">
-            ({deviceGeoPosition?.latitude}, {deviceGeoPosition?.longitude})
-          </ThemedText>
+      {geoPosition ? (
+        <WeatherHeader geoPosition={geoPosition} />
+      ) : (
+        <Spinner size={21} />
+      )}
 
-          <ThemedText type="default">
-            temperature: {current?.temperature} {current?.units.temperature}
-          </ThemedText>
-          <ThemedText type="default">
-            description: {current?.description}
-          </ThemedText>
-          <ThemedText type="default">
-            wind speed: {current?.windSpeed} {current?.units.speed}
-          </ThemedText>
-        </>
+      {current ? (
+        <WeatherSingleCard
+          temperature={current.temperature}
+          description={current.description}
+          windSpeed={current.windSpeed}
+          units={current.units}
+        />
+      ) : (
+        <Spinner size={21} />
       )}
     </ThemedView>
   );
@@ -44,7 +40,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
+    gap: 42,
     margin: 21
   }
 });

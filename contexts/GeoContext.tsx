@@ -11,12 +11,13 @@ export const GeoProvider: FC<{ children: ReactNode }> = ({
 }: {
   children: ReactNode;
 }) => {
-  const [deviceGeoPosition, setDeviceGeoPosition] = useState<{
+  const [geoPosition, setGeoPosition] = useState<{
     latitude: number;
     longitude: number;
     city: string;
     region: string;
     country: string;
+    isoCountryCode: string;
   } | null>(null);
 
   const getLocation = async (): Promise<void> => {
@@ -40,26 +41,25 @@ export const GeoProvider: FC<{ children: ReactNode }> = ({
       const city = reverseGeocodeResult?.city || 'Unknown city';
       const region = reverseGeocodeResult?.region || 'Unknown region';
       const country = reverseGeocodeResult?.country || 'Unknown country';
-      //const iso2 = reverseGeocodeResult?.isoCountryCode || 'Unknown iso2';
+      const isoCountryCode = reverseGeocodeResult?.isoCountryCode || 'Unknown iso2';
 
       const newDeviceGeoPosition = {
         latitude,
         longitude,
         city,
         region,
-        country
+        country,
+        isoCountryCode
       };
 
-      setDeviceGeoPosition(newDeviceGeoPosition);
+      setGeoPosition(newDeviceGeoPosition);
     } catch (error) {
       shootAlert('Error', 'Failed to get location.');
     }
   };
 
   return (
-    <GeoContext.Provider
-      value={{ deviceGeoPosition, setDeviceGeoPosition, getLocation }}
-    >
+    <GeoContext.Provider value={{ geoPosition, setGeoPosition, getLocation }}>
       {children}
     </GeoContext.Provider>
   );

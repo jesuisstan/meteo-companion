@@ -31,18 +31,15 @@ const TabLayout = () => {
     { key: 'today', title: 'Today', icon: 'today' },
     { key: 'weekly', title: 'Weekly', icon: 'calendar' }
   ];
-  const { deviceGeoPosition, getLocation } = useGeo();
+  const { geoPosition, getLocation } = useGeo();
   const { fetchWeatherData } = useWeather();
 
   useEffect(() => {
     const fetchLocation = async () => {
       try {
         await getLocation();
-        deviceGeoPosition &&
-          fetchWeatherData(
-            deviceGeoPosition!.latitude,
-            deviceGeoPosition!.longitude
-          );
+        geoPosition &&
+          fetchWeatherData(geoPosition!.latitude, geoPosition!.longitude);
       } catch (error) {
         shootAlert('Error', 'Failed to get location.');
       }

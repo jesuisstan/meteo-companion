@@ -20,7 +20,7 @@ const MIN_GEO_LENGTH = 2;
 const MAX_GEO_LENGTH = 100;
 
 const SearchBar = () => {
-  const { deviceGeoPosition, setDeviceGeoPosition, getLocation } = useGeo();
+  const { geoPosition, setGeoPosition, getLocation } = useGeo();
   const { fetchWeatherData } = useWeather();
   const [searchText, setSearchText] = useState('');
   const [isFocused, setIsFocused] = useState(false);
@@ -38,10 +38,6 @@ const SearchBar = () => {
         setCities(cities.slice(0, 5)); // todo show no more than 5 suggestions
       } else {
         setCities([]);
-        shootAlert(
-          'Oops!',
-          'Could not find any results for the supplied address or coordinates.'
-        );
       }
     } catch (error) {
       setCities([]);
@@ -93,12 +89,13 @@ const SearchBar = () => {
 
         // Set device geo position based on foundCity or default to the first city in the list
         const selectedCity = foundCity || cities[0];
-        setDeviceGeoPosition({
+        setGeoPosition({
           latitude: selectedCity.latitude,
           longitude: selectedCity.longitude,
           city: selectedCity.name,
           region: selectedCity.admin1 || 'Unknown region',
-          country: selectedCity.country || 'Unknown country'
+          country: selectedCity.country || 'Unknown country',
+          isoCountryCode: selectedCity.isoCountryCode || ''
         });
       } else {
         setCities([]);
@@ -123,27 +120,25 @@ const SearchBar = () => {
     clearText();
   };
 
-  const handleCityPress = (city: any) => {
+  const handleCityPress = (city: TCity) => {
     setSearchText(city.name);
     setCities([]);
-    setDeviceGeoPosition({
+    setGeoPosition({
       latitude: city.latitude,
       longitude: city.longitude,
       city: city.name,
       region: city.admin1 || 'Unknown region',
-      country: city.country || 'Unknown country'
+      country: city.country || 'Unknown country',
+      isoCountryCode: city.isoCountryCode || ''
     });
   };
 
-  // fetch weather data when deviceGeoPosition changes
+  // fetch weather data when geoPosition changes
   useEffect(() => {
-    if (deviceGeoPosition) {
-      fetchWeatherData(
-        deviceGeoPosition!.latitude,
-        deviceGeoPosition!.longitude
-      );
+    if (geoPosition) {
+      fetchWeatherData(geoPosition!.latitude, geoPosition!.longitude);
     }
-  }, [deviceGeoPosition]);
+  }, [geoPosition]);
 
   return (
     <View style={styles.container}>
@@ -187,7 +182,7 @@ const SearchBar = () => {
         <FlatList
           data={citiesData}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }: { item: any }) => (
+          renderItem={({ item }: { item: TCity }) => (
             <Pressable
               style={styles.cityItem}
               onPress={() => handleCityPress(item)}

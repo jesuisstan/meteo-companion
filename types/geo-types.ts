@@ -1,17 +1,21 @@
+export type TGeoPosition = {
+  latitude: number;
+  longitude: number;
+  city: string;
+  region: string;
+  country: string;
+  isoCountryCode: string;
+};
+
 export type TGeoContextType = {
-  deviceGeoPosition: {
+  geoPosition: TGeoPosition | null;
+  setGeoPosition: (newGeo: {
     latitude: number;
     longitude: number;
     city: string;
     region: string;
     country: string;
-  } | null;
-  setDeviceGeoPosition: (newGeo: {
-    latitude: number;
-    longitude: number;
-    city: string;
-    region: string;
-    country: string;
+    isoCountryCode: string;
   }) => void;
   getLocation: () => Promise<void>;
 };

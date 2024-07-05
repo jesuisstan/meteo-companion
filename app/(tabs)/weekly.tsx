@@ -1,27 +1,24 @@
 import { StyleSheet, ScrollView, Text } from 'react-native';
 
-import { ThemedText } from '@/components/ui/ThemedText';
 import ThemedView from '@/components/ui/ThemedView';
 import { useGeo } from '@/contexts/GeoContext';
 import { useWeather } from '@/contexts/WeatherContext';
+import WeatherHeader from '@/components/WeatherHeader';
+import Spinner from '@/components/ui/Spinner';
 
 const WeeklyScreen = () => {
-  const { deviceGeoPosition } = useGeo();
+  const { geoPosition } = useGeo();
   const { daily } = useWeather();
 
   return (
     <ThemedView style={styles.container}>
-      {deviceGeoPosition && (
+      {geoPosition ? (
+        <WeatherHeader geoPosition={geoPosition} />
+      ) : (
+        <Spinner size={21} />
+      )}
+      {daily && (
         <>
-          <ThemedText type="title">{deviceGeoPosition?.city}</ThemedText>
-          <ThemedText type="subtitle">
-            {deviceGeoPosition?.region ? `${deviceGeoPosition.region}, ` : ''}
-            {deviceGeoPosition?.country}
-          </ThemedText>
-          <ThemedText type="default">
-            ({deviceGeoPosition?.latitude}, {deviceGeoPosition?.longitude})
-          </ThemedText>
-
           <ScrollView style={styles.scrollView}>
             {daily &&
               daily.map((item, index) => (

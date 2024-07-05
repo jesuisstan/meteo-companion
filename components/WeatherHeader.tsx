@@ -31,5 +31,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 10
   },
-  title: { color: C42_ORANGE_DARK }
+  title: { color: C42_ORANGE_DARK, textAlign: 'center' }
 });

@@ -5,37 +5,7 @@ import {
   THourlyWeather,
   TDailyWeather
 } from '@/types/weather-types';
-
-const weatherDescriptions: { [key: number]: string } = {
-  0: 'Clear sky',
-  1: 'Mainly clear',
-  2: 'Partly cloudy',
-  3: 'Overcast',
-  45: 'Fog',
-  48: 'Depositing rime fog',
-  51: 'Drizzle: Light',
-  53: 'Drizzle: Moderate',
-  55: 'Drizzle: Dense intensity',
-  56: 'Freezing Drizzle: Light',
-  57: 'Freezing Drizzle: Dense intensity',
-  61: 'Rain: Slight',
-  63: 'Rain: Moderate',
-  65: 'Rain: Heavy intensity',
-  66: 'Freezing Rain: Light',
-  67: 'Freezing Rain: Heavy intensity',
-  71: 'Snow fall: Slight',
-  73: 'Snow fall: Moderate',
-  75: 'Snow fall: Heavy intensity',
-  77: 'Snow grains',
-  80: 'Rain showers: Slight',
-  81: 'Rain showers: Moderate',
-  82: 'Rain showers: Violent',
-  85: 'Snow showers: Slight',
-  86: 'Snow showers: Heavy',
-  95: 'Thunderstorm: Slight or moderate',
-  96: 'Thunderstorm with slight hail',
-  99: 'Thunderstorm with heavy hail'
-};
+import { weatherDescriptions } from '@/utils/handle-weather-condition';
 
 export const fetchWeather = async (latitude: number, longitude: number) => {
   const url = `https://api.open-meteo.com/v1/forecast`;
@@ -57,6 +27,7 @@ export const fetchWeather = async (latitude: number, longitude: number) => {
     // Current Weather
     const currentWeather: TCurrentWeather = {
       temperature: data.current_weather.temperature,
+      weatherCode: data.current_weather.weathercode,
       description: weatherDescriptions[data.current_weather.weathercode],
       windSpeed: data.current_weather.windspeed,
       units: {
@@ -73,6 +44,7 @@ export const fetchWeather = async (latitude: number, longitude: number) => {
           acc.push({
             hour: time.slice(11, 16), // Extracting HH:MM from ISO timestamp
             temperature: data.hourly.temperature_2m[index],
+            weatherCode: data.hourly.weathercode,
             description: weatherDescriptions[data.hourly.weathercode[index]],
             windSpeed: data.hourly.windspeed_10m[index],
             units: {
@@ -92,6 +64,7 @@ export const fetchWeather = async (latitude: number, longitude: number) => {
         date: time,
         minTemperature: data.daily.temperature_2m_min[index],
         maxTemperature: data.daily.temperature_2m_max[index],
+        weatherCode: data.daily.weathercode,
         description: weatherDescriptions[data.daily.weathercode[index]],
         units: {
           minTemperature: data.daily_units.temperature_2m_min,

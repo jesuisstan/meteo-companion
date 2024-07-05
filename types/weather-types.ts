@@ -1,5 +1,6 @@
 export type TCurrentWeather = {
   temperature: number;
+  weatherCode: number;
   description: string;
   windSpeed: number;
   units: {
@@ -11,6 +12,7 @@ export type TCurrentWeather = {
 export type THourlyWeather = {
   hour: string;
   temperature: number;
+  weatherCode: number;
   description: string;
   windSpeed: number;
   units: {
@@ -23,6 +25,7 @@ export type TDailyWeather = {
   date: string;
   minTemperature: number;
   maxTemperature: number;
+  weatherCode: number;
   description: string;
   units: {
     minTemperature: string;

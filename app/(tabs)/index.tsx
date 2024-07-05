@@ -22,6 +22,7 @@ const CurrentlyScreen = () => {
       {current ? (
         <WeatherSingleCard
           temperature={current.temperature}
+          weatherCode={current.weatherCode}
           description={current.description}
           windSpeed={current.windSpeed}
           units={current.units}

@@ -4,10 +4,23 @@ import { useGeo } from '@/contexts/GeoContext';
 import { useWeather } from '@/contexts/WeatherContext';
 import WeatherHeader from '@/components/WeatherHeader';
 import Spinner from '@/components/ui/Spinner';
+import { ThemedText } from '@/components/ui/ThemedText';
+import HourlyChart from '@/components/charts/HourlyChart';
+import WeatherDailyCard from '@/components/WeatherDailyCard';
 
 const WeeklyScreen = () => {
   const { geoPosition } = useGeo();
   const { daily } = useWeather();
+
+  //// Prepare data for the chart
+  //const chartData = {
+  //  labels: daily ? daily.map((item) => item.hour.split(':')[0]) : [],
+  //  datasets: [
+  //    {
+  //      data: daily ? daily.map((item) => item.temperature) : []
+  //    }
+  //  ]
+  //};
 
   return (
     <ScrollView
@@ -19,19 +32,34 @@ const WeeklyScreen = () => {
       ) : (
         <Spinner size={21} />
       )}
-      {daily && (
+      {daily ? (
         <>
-          <ScrollView style={styles.scrollView}>
-            {daily &&
-              daily.map((item, index) => (
-                <Text key={index} style={styles.hourlyItem}>
-                  {item.date}: min {item.minTemperature}{' '}
-                  {item.units.minTemperature}, max {item.maxTemperature}{' '}
-                  {item.units.maxTemperature}, {item.description}.
-                </Text>
-              ))}
+          <ThemedText type="subtitle">Daily Forecast</ThemedText>
+          {/*<HourlyChart
+            chartData={chartData}
+            yAxisSuffix={` ${daily[0]?.units.temperature}`}
+          />*/}
+          <ScrollView
+            style={styles.scrollViewCards}
+            horizontal={true}
+            showsHorizontalScrollIndicator={true}
+          >
+            {daily.map((item, index) => (
+              <WeatherDailyCard
+                key={index}
+                date={item.date}
+                maxTemperature={item.maxTemperature}
+                minTemperature={item.minTemperature}
+                weatherCode={item.weatherCode}
+                description={item.description}
+                units={item.units}
+                style={styles.card}
+              />
+            ))}
           </ScrollView>
         </>
+      ) : (
+        <Spinner size={21} />
       )}
     </ScrollView>
   );
@@ -48,13 +76,12 @@ const styles = StyleSheet.create({
     gap: 18,
     alignItems: 'center'
   },
-  scrollView: {
+  scrollViewCards: {
     width: '100%',
-    marginTop: 10
+    maxHeight: 'auto',
+    minHeight: 180
   },
-  hourlyItem: {
-    paddingVertical: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc'
+  card: {
+    transform: [{ scale: 0.6 }]
   }
 });

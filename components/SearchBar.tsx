@@ -8,7 +8,7 @@ import {
   Text
 } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { C42_TEXT, C42_GREEN_DARK, C42_GREY } from '@/style/Colors';
+import { C42_TEXT, C42_GREEN_DARK, C42_VIOLET } from '@/style/Colors';
 import { useGeo } from '@/contexts/GeoContext';
 import { getCities } from '@/utils/api/fetch-cities';
 import { useWeather } from '@/contexts/WeatherContext';
@@ -35,7 +35,7 @@ const SearchBar = () => {
       }
       const cities = await getCities(text);
       if (cities) {
-        setCities(cities.slice(0, 5)); // todo show no more than 5 suggestions
+        setCities(cities.slice(0, 12)); // show no more than 12 suggestions
       } else {
         setCities([]);
       }
@@ -231,14 +231,14 @@ const styles = StyleSheet.create({
     top: 110,
     left: 10,
     right: 10,
-    backgroundColor: C42_GREY,
+    backgroundColor: C42_VIOLET,
     zIndex: 99991,
     borderRadius: 21,
     maxHeight: 600,
-    opacity: 0.95
+    opacity: 0.93
   },
   cityItem: {
-    padding: 15
+    padding: 12
   },
   cityText: {
     color: C42_TEXT

@@ -68,6 +68,6 @@ const styles = StyleSheet.create({
     minHeight: 180
   },
   card: {
-    transform: [{ scale: 0.6 }]
+    transform: [{ scale: 0.7 }]
   }
 });

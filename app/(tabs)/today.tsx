@@ -2,7 +2,6 @@ import { StyleSheet, ScrollView } from 'react-native';
 
 import { useGeo } from '@/contexts/GeoContext';
 import { useWeather } from '@/contexts/WeatherContext';
-import ThemedView from '@/components/ui/ThemedView';
 import WeatherHeader from '@/components/WeatherHeader';
 import Spinner from '@/components/ui/Spinner';
 import WeatherSingleCard from '@/components/WeatherSingleCard';
@@ -24,7 +23,10 @@ const TodayScreen = () => {
   };
 
   return (
-    <ThemedView style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.containerContent}
+    >
       {geoPosition ? (
         <WeatherHeader geoPosition={geoPosition} />
       ) : (
@@ -59,7 +61,7 @@ const TodayScreen = () => {
       ) : (
         <Spinner size={21} />
       )}
-    </ThemedView>
+    </ScrollView>
   );
 };
 
@@ -67,11 +69,12 @@ export default TodayScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
+    flex: 1
+  },
+  containerContent: {
     margin: 18,
     gap: 18,
-    overflow: 'scroll'
+    alignItems: 'center'
   },
   scrollViewCards: {
     width: '100%',

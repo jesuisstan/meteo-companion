@@ -1,6 +1,5 @@
 import { StyleSheet, ScrollView, Text } from 'react-native';
 
-import ThemedView from '@/components/ui/ThemedView';
 import { useGeo } from '@/contexts/GeoContext';
 import { useWeather } from '@/contexts/WeatherContext';
 import WeatherHeader from '@/components/WeatherHeader';
@@ -11,7 +10,10 @@ const WeeklyScreen = () => {
   const { daily } = useWeather();
 
   return (
-    <ThemedView style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.containerContent}
+    >
       {geoPosition ? (
         <WeatherHeader geoPosition={geoPosition} />
       ) : (
@@ -31,7 +33,7 @@ const WeeklyScreen = () => {
           </ScrollView>
         </>
       )}
-    </ThemedView>
+    </ScrollView>
   );
 };
 
@@ -39,10 +41,12 @@ export default WeeklyScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
+    flex: 1
+  },
+  containerContent: {
     margin: 18,
-    overflow: 'scroll'
+    gap: 18,
+    alignItems: 'center'
   },
   scrollView: {
     width: '100%',

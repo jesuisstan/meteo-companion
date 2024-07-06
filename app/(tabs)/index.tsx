@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     margin: 18,
-    gap: 18,
-    overflow: 'scroll'
+    gap: 18
   }
 });

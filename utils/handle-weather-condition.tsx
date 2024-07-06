@@ -65,14 +65,9 @@ const weatherConditionGroups: { [key: number]: { day: any, night: any } } = {
   99: { day: { iconSet: Ionicons, iconName: 'thunderstorm', size: 50, color: C42_ORANGE_DARK }, night: { iconSet: Ionicons, iconName: 'thunderstorm', size: 50, color: C42_ORANGE_DARK } }  // Thunderstorm with heavy hail
 };
 
-// Function to get the icon JSX element based on the weather condition code and hour
-export const getWeatherIcon = (weatherCode: number, hour?: string): JSX.Element => {
-  const isDayTime = (hour: string) => {
-    const hourInt = parseInt(hour.split(':')[0]);
-    return hourInt >= 12 && hourInt < 24;
-  };
-
-  const timeOfDay = hour ? (isDayTime(hour) ? 'day' : 'night') : 'day';
+// Function to get the icon JSX element based on the weather condition code and isDay
+export const getWeatherIcon = (weatherCode: number, isDay?: boolean): JSX.Element => {
+  const timeOfDay = isDay !== undefined ? (isDay ? 'day' : 'night') : 'day';
   const weatherGroup = weatherConditionGroups[weatherCode];
 
   if (weatherGroup) {

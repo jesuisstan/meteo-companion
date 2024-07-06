@@ -12,8 +12,8 @@ export const fetchWeather = async (latitude: number, longitude: number) => {
   const params = {
     latitude: latitude, // The latitude of the location for which to fetch the weather data
     longitude: longitude, // The longitude of the location for which to fetch the weather data
-    hourly: 'temperature_2m,windspeed_10m,weathercode', // List of hourly weather variables to include in the response
-    daily: 'temperature_2m_max,temperature_2m_min,weathercode', // List of daily weather variables to include in the response
+    hourly: 'temperature_2m,windspeed_10m,weathercode,is_day', // List of hourly weather variables to include in the response
+    daily: 'temperature_2m_max,temperature_2m_min,weathercode,sunrise,sunset', // List of daily weather variables to include in the response
     current_weather: true // Boolean flag to include the current weather data in the response
 
     // (!) Do not provide timezone to get data for today in UTC; uncomment to get data starting at 00:00 local time
@@ -26,11 +26,11 @@ export const fetchWeather = async (latitude: number, longitude: number) => {
 
     // Current Weather
     const currentWeather: TCurrentWeather = {
-      hour: new Date(data.current_weather.time).toISOString().slice(11, 16), // Extracting HH:MM from ISO timestamp
       temperature: data.current_weather.temperature,
       weatherCode: data.current_weather.weathercode,
       description: weatherDescriptions[data.current_weather.weathercode],
       windSpeed: data.current_weather.windspeed,
+      isDay: data.current_weather.is_day,
       units: {
         temperature: data.current_weather_units.temperature,
         speed: data.current_weather_units.windspeed
@@ -48,6 +48,7 @@ export const fetchWeather = async (latitude: number, longitude: number) => {
             weatherCode: data.hourly.weathercode[index],
             description: weatherDescriptions[data.hourly.weathercode[index]],
             windSpeed: data.hourly.windspeed_10m[index],
+            isDay: data.hourly.is_day[index],
             units: {
               temperature: data.hourly_units.temperature_2m,
               speed: data.hourly_units.windspeed_10m

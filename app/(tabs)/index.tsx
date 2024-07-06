@@ -26,7 +26,7 @@ const CurrentlyScreen = () => {
           description={current.description}
           windSpeed={current.windSpeed}
           units={current.units}
-          hour={current.hour}
+          isDay={current.isDay}
         />
       ) : (
         <Spinner size={21} />

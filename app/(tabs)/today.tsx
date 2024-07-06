@@ -20,17 +20,13 @@ const TodayScreen = () => {
       )}
       {hourly ? (
         <>
-          <ScrollView style={styles.scrollView}>
-            <Text style={styles.hourlyItem}>TABLE</Text>
-            <Text style={styles.hourlyItem}>TABLE</Text>
-            <Text style={styles.hourlyItem}>TABLE</Text>
-            <Text style={styles.hourlyItem}>TABLE</Text>
-          </ScrollView>
+          <Text>TABLE</Text>
 
           <ScrollView
             style={styles.scrollView}
             horizontal={true}
             showsHorizontalScrollIndicator={true}
+            persistentScrollbar={true}
           >
             {hourly.map((item, index) => (
               <WeatherSingleCard
@@ -40,6 +36,7 @@ const TodayScreen = () => {
                 description={item.description}
                 windSpeed={item.windSpeed}
                 units={item.units}
+                isDay={item.isDay}
                 hour={item.hour}
                 style={styles.card}
               />
@@ -59,20 +56,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
     margin: 21
   },
   scrollView: {
     width: '100%',
-    marginTop: 10
+    marginTop: 10,
+    maxHeight: 221
   },
   card: {
-    transform: [{ scale: 0.5 }],
-    marginRight: 10
-  },
-  hourlyItem: {
-    paddingVertical: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc'
+    transform: [{ scale: 0.6 }]
+    //maxHeight: 50
   }
 });

@@ -5,18 +5,32 @@ import { LineChart } from 'react-native-chart-kit';
 import {
   C42_BACKGROUND,
   C42_GREEN,
+  C42_GREEN_DARK,
   C42_ORANGE_DARK,
   C42_TEXT,
-  C42_VIOLET
+  C42_VIOLET,
+  C42_VIOLET_DARK
 } from '@/style/Colors';
-import { THourlyWeather } from '@/types/weather-types';
 
 const MIN_CHART_HEIGHT = 242;
 
-type TChartHourlyData = {
+type TDailyWeather = {
+  date: string;
+  minTemperature: number;
+  maxTemperature: number;
+  weatherCode: number;
+  description: string;
+  units: {
+    minTemperature: string;
+    maxTemperature: string;
+  };
+};
+
+type TChartDailyData = {
   labels: string[];
   datasets: {
     data: number[];
+    color: (opacity: number) => string;
   }[];
 };
 
@@ -27,22 +41,30 @@ type TDataPoint = {
   y: number;
 };
 
-type THourlyChartProps = {
-  hourlyWeatherData: THourlyWeather[];
+type TDailyChartProps = {
+  dailyWeatherData: TDailyWeather[];
 };
 
-const HourlyChart: FC<THourlyChartProps> = ({ hourlyWeatherData }) => {
-  // Transform hourlyWeatherData to chartData
-  const chartData: TChartHourlyData = {
-    labels: hourlyWeatherData.map((item) => item.hour.split(':')[0]),
+const DailyChart: FC<TDailyChartProps> = ({ dailyWeatherData }) => {
+  // Transform dailyWeatherData to chartData
+  const chartData: TChartDailyData = {
+    labels: dailyWeatherData.map((item) => {
+      const [year, month, day] = item.date.split('-');
+      return `${day}/${month}`;
+    }),
     datasets: [
       {
-        data: hourlyWeatherData.map((item) => item.temperature)
+        data: dailyWeatherData.map((item) => item.maxTemperature),
+        color: () => C42_ORANGE_DARK
+      },
+      {
+        data: dailyWeatherData.map((item) => item.minTemperature),
+        color: () => C42_VIOLET_DARK
       }
     ]
   };
 
-  const yAxisSuffix = ` ${hourlyWeatherData[0]?.units.temperature}`;
+  const yAxisSuffix = ` ${dailyWeatherData[0]?.units.minTemperature}`; // Assuming the units are the same for min and max temperature
 
   const [tooltip, setTooltip] = useState({
     visible: false,
@@ -70,7 +92,7 @@ const HourlyChart: FC<THourlyChartProps> = ({ hourlyWeatherData }) => {
       <View style={styles.chartContainer}>
         <LineChart
           data={chartData}
-          width={chartData.labels.length * 42} // based on number of items
+          width={chartData.labels.length * 48} // based on number of items
           height={MIN_CHART_HEIGHT}
           yAxisSuffix={yAxisSuffix}
           chartConfig={{
@@ -84,11 +106,10 @@ const HourlyChart: FC<THourlyChartProps> = ({ hourlyWeatherData }) => {
             propsForDots: {
               r: '4',
               strokeWidth: '2',
-              stroke: C42_ORANGE_DARK
+              stroke: C42_GREEN_DARK
             }
           }}
           bezier
-          xAxisLabel="h"
           style={styles.chart}
           onDataPointClick={handleDataPointClick}
         />
@@ -135,4 +156,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default HourlyChart;
+export default DailyChart;

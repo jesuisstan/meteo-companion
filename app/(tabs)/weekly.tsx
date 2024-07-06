@@ -1,26 +1,16 @@
-import { StyleSheet, ScrollView, Text } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 
 import { useGeo } from '@/contexts/GeoContext';
 import { useWeather } from '@/contexts/WeatherContext';
 import WeatherHeader from '@/components/WeatherHeader';
 import Spinner from '@/components/ui/Spinner';
 import { ThemedText } from '@/components/ui/ThemedText';
-import HourlyChart from '@/components/charts/HourlyChart';
+import DailyChart from '@/components/charts/DailyChart';
 import WeatherDailyCard from '@/components/WeatherDailyCard';
 
 const WeeklyScreen = () => {
   const { geoPosition } = useGeo();
   const { daily } = useWeather();
-
-  //// Prepare data for the chart
-  //const chartData = {
-  //  labels: daily ? daily.map((item) => item.hour.split(':')[0]) : [],
-  //  datasets: [
-  //    {
-  //      data: daily ? daily.map((item) => item.temperature) : []
-  //    }
-  //  ]
-  //};
 
   return (
     <ScrollView
@@ -35,10 +25,7 @@ const WeeklyScreen = () => {
       {daily ? (
         <>
           <ThemedText type="subtitle">Daily Forecast</ThemedText>
-          {/*<HourlyChart
-            chartData={chartData}
-            yAxisSuffix={` ${daily[0]?.units.temperature}`}
-          />*/}
+          <DailyChart dailyWeatherData={daily} />
           <ScrollView
             style={styles.scrollViewCards}
             horizontal={true}
@@ -77,7 +64,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   scrollViewCards: {
-    width: '100%',
     maxHeight: 'auto',
     minHeight: 180
   },

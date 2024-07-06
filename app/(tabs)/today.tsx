@@ -12,16 +12,6 @@ const TodayScreen = () => {
   const { geoPosition } = useGeo();
   const { hourly } = useWeather();
 
-  // Prepare data for the chart
-  const chartData = {
-    labels: hourly ? hourly.map((item) => item.hour.split(':')[0]) : [],
-    datasets: [
-      {
-        data: hourly ? hourly.map((item) => item.temperature) : []
-      }
-    ]
-  };
-
   return (
     <ScrollView
       style={styles.container}
@@ -35,10 +25,7 @@ const TodayScreen = () => {
       {hourly ? (
         <>
           <ThemedText type="subtitle">Hourly Forecast</ThemedText>
-          <HourlyChart
-            chartData={chartData}
-            yAxisSuffix={` ${hourly[0]?.units.temperature}`}
-          />
+          <HourlyChart hourlyWeatherData={hourly} />
           <ScrollView
             style={styles.scrollViewCards}
             horizontal={true}
@@ -77,7 +64,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   scrollViewCards: {
-    width: '100%',
     maxHeight: 'auto',
     minHeight: 180
   },

@@ -39,4 +39,24 @@ body {
   body {
     background-color: #000;
   }
-}`;
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+}
+::-webkit-scrollbar-track {
+  background: #2c2c34;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #01a2a4;
+  border-radius: 10px;
+}
+
+* {
+  scrollbar-color: #01a2a4 #2c2c34;
+  scrollbar-width: thin;
+  scrollbar-face-color: #2c2c34;
+  scrollbar-track-color: #2c2c34;
+  scrollbar-arrow-color: #01a2a4;
+}  
+`;

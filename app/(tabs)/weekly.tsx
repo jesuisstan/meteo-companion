@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    margin: 21
+    margin: 18,
+    overflow: 'scroll'
   },
   scrollView: {
     width: '100%',

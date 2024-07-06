@@ -12,7 +12,7 @@ const WeatherHeader = ({ geoPosition }: { geoPosition: TGeoPosition }) => {
       <ThemedText type="title" style={styles.title}>
         {geoPosition?.city}
       </ThemedText>
-      <ThemedText type="subtitle">
+      <ThemedText type="subtitle" style={{ textAlign: 'center' }}>
         {geoPosition?.region ? `${geoPosition.region}, ` : ''}
         {geoPosition?.country}
       </ThemedText>
@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'column',
     alignItems: 'center',
-    gap: 10
+    gap: 10,
+    textAlign: 'center'
   },
   title: { color: C42_ORANGE_DARK, textAlign: 'center' }
 });

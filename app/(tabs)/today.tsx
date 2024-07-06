@@ -1,15 +1,27 @@
-import { StyleSheet, Text, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 
-import ThemedView from '@/components/ui/ThemedView';
 import { useGeo } from '@/contexts/GeoContext';
 import { useWeather } from '@/contexts/WeatherContext';
+import ThemedView from '@/components/ui/ThemedView';
 import WeatherHeader from '@/components/WeatherHeader';
 import Spinner from '@/components/ui/Spinner';
 import WeatherSingleCard from '@/components/WeatherSingleCard';
+import { ThemedText } from '@/components/ui/ThemedText';
+import HourlyChart from '@/components/charts/HourlyChart';
 
 const TodayScreen = () => {
   const { geoPosition } = useGeo();
   const { hourly } = useWeather();
+
+  // Prepare data for the chart
+  const chartData = {
+    labels: hourly ? hourly.map((item) => item.hour.split(':')[0]) : [],
+    datasets: [
+      {
+        data: hourly ? hourly.map((item) => item.temperature) : []
+      }
+    ]
+  };
 
   return (
     <ThemedView style={styles.container}>
@@ -20,13 +32,15 @@ const TodayScreen = () => {
       )}
       {hourly ? (
         <>
-          <Text>TABLE</Text>
-
+          <ThemedText type="subtitle">Hourly Forecast</ThemedText>
+          <HourlyChart
+            chartData={chartData}
+            yAxisSuffix={` ${hourly[0]?.units.temperature}`}
+          />
           <ScrollView
-            style={styles.scrollView}
+            style={styles.scrollViewCards}
             horizontal={true}
             showsHorizontalScrollIndicator={true}
-            persistentScrollbar={true}
           >
             {hourly.map((item, index) => (
               <WeatherSingleCard
@@ -36,7 +50,6 @@ const TodayScreen = () => {
                 description={item.description}
                 windSpeed={item.windSpeed}
                 units={item.units}
-                isDay={item.isDay}
                 hour={item.hour}
                 style={styles.card}
               />
@@ -56,15 +69,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    margin: 21
+    margin: 18,
+    gap: 18,
+    overflow: 'scroll'
   },
-  scrollView: {
+  scrollViewCards: {
     width: '100%',
-    marginTop: 10,
-    maxHeight: 221
+    maxHeight: 'auto',
+    minHeight: 180
   },
   card: {
     transform: [{ scale: 0.6 }]
-    //maxHeight: 50
   }
 });

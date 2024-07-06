@@ -90,13 +90,13 @@ const TabLayout = () => {
 
   return (
     <View style={styles.container}>
-      <View style={[styles.header]}>
-        <SearchBar />
-      </View>
       <ImageBackground
         source={require('../../assets/images/background.jpg')}
         style={styles.imageBackground}
       >
+        <View style={[styles.header]}>
+          <SearchBar />
+        </View>
         <TabView
           navigationState={{ index, routes }}
           renderScene={windowHeight ? renderScene : () => null}
@@ -121,7 +121,11 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     flex: 1,
-    resizeMode: 'cover'
+    resizeMode: 'cover',
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+    position: 'absolute'
   },
   tabBar: {
     backgroundColor: colors42.C42_VIOLET,

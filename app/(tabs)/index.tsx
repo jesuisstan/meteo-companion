@@ -6,6 +6,7 @@ import { useWeather } from '@/contexts/WeatherContext';
 import WeatherHeader from '@/components/WeatherHeader';
 import Spinner from '@/components/ui/Spinner';
 import WeatherSingleCard from '@/components/WeatherSingleCard';
+import { ThemedText } from '@/components/ui/ThemedText';
 
 const CurrentlyScreen = () => {
   const { geoPosition } = useGeo();
@@ -20,14 +21,17 @@ const CurrentlyScreen = () => {
       )}
 
       {current ? (
-        <WeatherSingleCard
-          temperature={current.temperature}
-          weatherCode={current.weatherCode}
-          description={current.description}
-          windSpeed={current.windSpeed}
-          units={current.units}
-          isDay={current.isDay}
-        />
+        <>
+          <ThemedText type="subtitle">Current Weather</ThemedText>
+          <WeatherSingleCard
+            temperature={current.temperature}
+            weatherCode={current.weatherCode}
+            description={current.description}
+            windSpeed={current.windSpeed}
+            units={current.units}
+            isDay={current.isDay}
+          />
+        </>
       ) : (
         <Spinner size={21} />
       )}
@@ -41,8 +45,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
-    gap: 42,
-    margin: 21
+    margin: 18,
+    gap: 18,
+    overflow: 'scroll'
   }
 });

@@ -65,7 +65,8 @@ const styles = StyleSheet.create({
   },
   scrollViewCards: {
     maxHeight: 'auto',
-    minHeight: 180
+    minHeight: 180,
+    width: '90%'
   },
   card: {
     transform: [{ scale: 0.7 }]

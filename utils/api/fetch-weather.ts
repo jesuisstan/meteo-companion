@@ -13,7 +13,7 @@ export const fetchWeather = async (latitude: number, longitude: number) => {
     latitude: latitude, // The latitude of the location for which to fetch the weather data
     longitude: longitude, // The longitude of the location for which to fetch the weather data
     hourly: 'temperature_2m,windspeed_10m,weathercode,is_day', // List of hourly weather variables to include in the response
-    daily: 'temperature_2m_max,temperature_2m_min,weathercode,sunrise,sunset', // List of daily weather variables to include in the response
+    daily: 'temperature_2m_max,temperature_2m_min,weathercode', // List of daily weather variables to include in the response
     current_weather: true // Boolean flag to include the current weather data in the response
 
     // (!) Do not provide timezone to get data for today in UTC; uncomment to get data starting at 00:00 local time

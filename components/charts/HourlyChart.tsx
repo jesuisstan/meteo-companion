@@ -1,5 +1,5 @@
 import { useState, FC } from 'react';
-import { StyleSheet, ScrollView, Text, View } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, Platform } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 
 import {
@@ -131,7 +131,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 5,
     borderRadius: 15,
-    opacity: 0.8
+    opacity: 0.8,
+    width: Platform.OS === 'web' ? '100%' : undefined
   }
 });
 

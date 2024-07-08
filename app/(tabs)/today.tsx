@@ -20,10 +20,10 @@ const TodayScreen = () => {
       {geoPosition ? (
         <WeatherHeader geoPosition={geoPosition} />
       ) : (
-        <Spinner size={21} />
+        <Spinner size={42} />
       )}
       {loading ? (
-        <Spinner size={21} />
+        <Spinner size={42} />
       ) : hourly ? (
         <>
           <ThemedText type="subtitle">Hourly Forecast</ThemedText>

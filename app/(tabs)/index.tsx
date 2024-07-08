@@ -19,11 +19,11 @@ const CurrentlyScreen = () => {
       {geoPosition ? (
         <WeatherHeader geoPosition={geoPosition} />
       ) : (
-        <Spinner size={21} />
+        <Spinner size={42} />
       )}
 
       {loading ? (
-        <Spinner size={21} />
+        <Spinner size={42} />
       ) : current ? (
         <>
           <ThemedText type="subtitle">Current Weather</ThemedText>

@@ -17,6 +17,7 @@ import SearchBar from '@/components/SearchBar';
 import { useGeo } from '@/contexts/GeoContext';
 import { useWeather } from '@/contexts/WeatherContext';
 import shootAlert from '@/utils/shoot-alert';
+import RefetchButton from '@/components/ui/RefetchButton';
 
 const initialLayout = { width: Dimensions.get('window').width };
 const windowHeight = Dimensions.get('window').height;
@@ -97,6 +98,7 @@ const TabLayout = () => {
         <View style={[styles.header]}>
           <SearchBar />
         </View>
+        <RefetchButton />
         <TabView
           navigationState={{ index, routes }}
           renderScene={windowHeight ? renderScene : () => null}

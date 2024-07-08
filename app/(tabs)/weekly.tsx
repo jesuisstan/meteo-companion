@@ -20,11 +20,11 @@ const WeeklyScreen = () => {
       {geoPosition ? (
         <WeatherHeader geoPosition={geoPosition} />
       ) : (
-        <Spinner size={21} />
+        <Spinner size={42} />
       )}
 
       {loading ? (
-        <Spinner size={21} />
+        <Spinner size={42} />
       ) : daily ? (
         <>
           <ThemedText type="subtitle">Daily Forecast</ThemedText>

@@ -1,4 +1,8 @@
 export type TCurrentWeather = {
+  localTime: {
+    date: string;
+    time: string;
+  };
   temperature: number;
   weatherCode: number;
   description: string;

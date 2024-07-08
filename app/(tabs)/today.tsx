@@ -40,6 +40,7 @@ const TodayScreen = () => {
                 windSpeed={item.windSpeed}
                 units={item.units}
                 hour={item.hour}
+                isDay={item.isDay}
                 style={styles.card}
               />
             ))}

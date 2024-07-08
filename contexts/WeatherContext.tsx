@@ -12,6 +12,7 @@ type WeatherContextType = {
   current: TCurrentWeather | null;
   hourly: THourlyWeather[] | null;
   daily: TDailyWeather[] | null;
+  loading: boolean;
   setCurrent: (current: TCurrentWeather) => void;
   setHourly: (hourly: THourlyWeather[]) => void;
   setDaily: (daily: TDailyWeather[]) => void;
@@ -28,8 +29,10 @@ export const WeatherProvider: FC<{ children: ReactNode }> = ({
   const [current, setCurrent] = useState<TCurrentWeather | null>(null);
   const [hourly, setHourly] = useState<THourlyWeather[] | null>(null);
   const [daily, setDaily] = useState<TDailyWeather[] | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const fetchWeatherData = async (latitude: number, longitude: number) => {
+    setLoading(true);
     try {
       const { currentWeather, hourlyWeather, dailyWeather } =
         await fetchWeather(latitude, longitude);
@@ -37,7 +40,12 @@ export const WeatherProvider: FC<{ children: ReactNode }> = ({
       setHourly(hourlyWeather);
       setDaily(dailyWeather);
     } catch (error) {
+      setCurrent(null);
+      setHourly(null);
+      setCurrent(null);
       shootAlert('Error', 'Failed to fetch weather data.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -47,6 +55,7 @@ export const WeatherProvider: FC<{ children: ReactNode }> = ({
         current,
         hourly,
         daily,
+        loading,
         setCurrent,
         setHourly,
         setDaily,

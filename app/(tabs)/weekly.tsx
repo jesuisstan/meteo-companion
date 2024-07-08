@@ -10,7 +10,7 @@ import WeatherDailyCard from '@/components/WeatherDailyCard';
 
 const WeeklyScreen = () => {
   const { geoPosition } = useGeo();
-  const { daily } = useWeather();
+  const { loading, daily } = useWeather();
 
   return (
     <ScrollView
@@ -22,7 +22,10 @@ const WeeklyScreen = () => {
       ) : (
         <Spinner size={21} />
       )}
-      {daily ? (
+
+      {loading ? (
+        <Spinner size={21} />
+      ) : daily ? (
         <>
           <ThemedText type="subtitle">Daily Forecast</ThemedText>
           <DailyChart dailyWeatherData={daily} />
@@ -46,7 +49,7 @@ const WeeklyScreen = () => {
           </ScrollView>
         </>
       ) : (
-        <Spinner size={21} />
+        <ThemedText>No daily weather data available.</ThemedText>
       )}
     </ScrollView>
   );

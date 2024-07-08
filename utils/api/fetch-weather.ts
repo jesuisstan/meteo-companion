@@ -8,16 +8,24 @@ import {
 import { weatherDescriptions } from '@/utils/handle-weather-condition';
 
 export const fetchWeather = async (latitude: number, longitude: number) => {
+  // Get today's date and the date one week from today in YYYY-MM-DD format
+  const today = new Date();
+  const startDate = today.toISOString().slice(0, 10);
+  const endDateString = new Date(today.setDate(today.getDate() + 6))
+    .toISOString()
+    .slice(0, 10);
+
   const url = `https://api.open-meteo.com/v1/forecast`;
   const params = {
     latitude: latitude, // The latitude of the location for which to fetch the weather data
     longitude: longitude, // The longitude of the location for which to fetch the weather data
     hourly: 'temperature_2m,windspeed_10m,weathercode,is_day', // List of hourly weather variables to include in the response
     daily: 'temperature_2m_max,temperature_2m_min,weathercode', // List of daily weather variables to include in the response
-    current_weather: true // Boolean flag to include the current weather data in the response
-
-    // (!) Do not provide timezone to get data for today in UTC; uncomment to get data starting at 00:00 local time
-    //timezone: 'auto' // Automatically adjust the response based on the location's timezone
+    current_weather: true, // Boolean flag to include the current weather data in the response
+    start_date: startDate,
+    end_date: endDateString,
+    // (!) Do not provide timezone to get data for today in UTC; or set 'auto' to get data starting at 00:00 local time
+    timezone: 'auto' // Automatically adjust the response based on the location's timezone,
   };
 
   try {
@@ -37,11 +45,10 @@ export const fetchWeather = async (latitude: number, longitude: number) => {
       }
     };
 
-    // Today's Weather (only hourly data for today)
-    const today = new Date().toISOString().slice(0, 10); // Today's date in YYYY-MM-DD format
+    // Today's Weather (only hourly data for today (startDate))
     const hourlyWeather: THourlyWeather[] = data.hourly.time.reduce(
       (acc: THourlyWeather[], time: string, index: number) => {
-        if (time.startsWith(today)) {
+        if (time.startsWith(startDate)) {
           acc.push({
             hour: time.slice(11, 16), // Extracting HH:MM from ISO timestamp
             temperature: data.hourly.temperature_2m[index],
@@ -76,7 +83,6 @@ export const fetchWeather = async (latitude: number, longitude: number) => {
     );
     return { currentWeather, hourlyWeather, dailyWeather };
   } catch (error) {
-    //shootAlert('Error!', 'Failed to fetch weather data.');
     throw error;
   }
 };

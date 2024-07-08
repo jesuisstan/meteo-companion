@@ -10,7 +10,7 @@ import { ThemedText } from '@/components/ui/ThemedText';
 
 const CurrentlyScreen = () => {
   const { geoPosition } = useGeo();
-  const { current } = useWeather();
+  const { loading, current } = useWeather();
 
   return (
     <ThemedView style={[styles.container]}>
@@ -20,7 +20,9 @@ const CurrentlyScreen = () => {
         <Spinner size={21} />
       )}
 
-      {current ? (
+      {loading ? (
+        <Spinner size={21} />
+      ) : current ? (
         <>
           <ThemedText type="subtitle">Current Weather</ThemedText>
           <WeatherSingleCard
@@ -33,7 +35,7 @@ const CurrentlyScreen = () => {
           />
         </>
       ) : (
-        <Spinner size={21} />
+        <ThemedText>No current weather data available.</ThemedText>
       )}
     </ThemedView>
   );

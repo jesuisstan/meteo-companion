@@ -8,6 +8,7 @@ import {
   Text
 } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+
 import { C42_TEXT, C42_GREEN_DARK, C42_VIOLET } from '@/style/Colors';
 import { useGeo } from '@/contexts/GeoContext';
 import { getCities } from '@/utils/api/fetch-cities';

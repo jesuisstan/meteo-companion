@@ -10,7 +10,8 @@ import HourlyChart from '@/components/charts/HourlyChart';
 
 const TodayScreen = () => {
   const { geoPosition } = useGeo();
-  const { hourly } = useWeather();
+  const { loading, hourly } = useWeather();
+  const [year, month, day] = new Date().toISOString().slice(0, 10).split('-');
 
   return (
     <ScrollView
@@ -22,9 +23,13 @@ const TodayScreen = () => {
       ) : (
         <Spinner size={21} />
       )}
-      {hourly ? (
+      {loading ? (
+        <Spinner size={21} />
+      ) : hourly ? (
         <>
-          <ThemedText type="subtitle">Hourly Forecast</ThemedText>
+          <ThemedText type="subtitle">
+            Hourly Forecast ({day}/{month})
+          </ThemedText>
           <HourlyChart hourlyWeatherData={hourly} />
           <ScrollView
             style={styles.scrollViewCards}
@@ -47,7 +52,7 @@ const TodayScreen = () => {
           </ScrollView>
         </>
       ) : (
-        <Spinner size={21} />
+        <ThemedText>No hourly weather data available.</ThemedText>
       )}
     </ScrollView>
   );

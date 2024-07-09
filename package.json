@@ -10,6 +10,8 @@
     "lint": "expo lint",
     "clean": "npx rimraf node_modules && npx rimraf package-lock.json && npx rimraf .expo",
     "c:i": "npm run clean && npm install",
+    "build:android:prod": "npx eas build -p android --profile production",
+    "build:android:dev": "npx eas build -p android --profile development",
     "dev:build": "npx expo start --dev-client"
   },
   "dependencies": {

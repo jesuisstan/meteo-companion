@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
     left: 10,
     right: 10,
     backgroundColor: C42_VIOLET,
-    zIndex: 99991,
+    zIndex: 1000,
     borderRadius: 21,
     maxHeight: 600,
     opacity: 0.93

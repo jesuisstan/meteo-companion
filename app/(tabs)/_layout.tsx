@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   header: {
     height: 100,
     backgroundColor: colors42.C42_VIOLET,
-    zIndex: 1
+    zIndex: 1000
   },
   container: {
     flex: 1

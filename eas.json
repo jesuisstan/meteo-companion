@@ -3,27 +3,18 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-      "ios": {
-        "image": "latest"
-      },
       "android": {
         "image": "latest"
       }
     },
     "preview": {
       "distribution": "internal",
-      "ios": {
-        "image": "latest"
-      },
       "android": {
         "image": "latest"
       }
     },
     "production": {
-      "distribution": "store",
-      "ios": {
-        "image": "latest"
-      },
+      "distribution": "internal",
       "android": {
         "image": "latest"
       }

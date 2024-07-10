@@ -36,7 +36,7 @@ const SearchBar = () => {
       }
       const cities = await getCities(text);
       if (cities) {
-        setCities(cities.slice(0, 12)); // show no more than 12 suggestions
+        setCities(cities.slice(0, 5)); // todo show no more than 5 suggestions
       } else {
         setCities([]);
       }

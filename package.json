@@ -3,6 +3,7 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
+    "preinstall": "npm install -g eas-cli",
     "start": "expo start",
     "android:go": "expo start --android",
     "android:build:local:dev": "expo run:android",
@@ -50,8 +51,7 @@
     "@babel/core": "^7.20.0",
     "@types/react": "~18.2.45",
     "@types/react-native": "^0.73.0",
-    "@types/react-test-renderer": "^18.0.7",
-    "rimraf": "^5.0.5",
+    "rimraf": "^6.0.1",
     "typescript": "~5.3.3"
   },
   "private": true

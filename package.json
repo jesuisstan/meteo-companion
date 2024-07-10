@@ -12,7 +12,7 @@
     "web:go": "expo start --web",
     "lint": "expo lint",
     "start:build": "npx expo start --dev-client",
-    "clean": "npx rimraf node_modules && npx rimraf package-lock.json && npx rimraf .expo",
+    "clean": "npx rimraf node_modules && npx rimraf package-lock.json && npx rimraf .expo && npx rimraf android && npx rimraf ios && npx rimraf web",
     "c:i": "npm run clean && npm install"
   },
   "dependencies": {

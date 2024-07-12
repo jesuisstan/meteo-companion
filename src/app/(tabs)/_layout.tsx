@@ -92,7 +92,7 @@ const TabLayout = () => {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require('../../assets/images/background.jpg')}
+        source={require('../../../assets/images/background.jpg')}
         style={styles.imageBackground}
       >
         <View style={[styles.header]}>

@@ -14,7 +14,7 @@ SplashScreen.preventAutoHideAsync();
 
 const RootLayout = () => {
   const [loaded] = useFonts({
-    DMSans: require('../assets/fonts/DMSans-Regular.ttf')
+    DMSans: require('../../assets/fonts/DMSans-Regular.ttf')
   });
 
   useEffect(() => {

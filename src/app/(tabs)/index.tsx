@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, ScrollView, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 import ThemedView from '@/components/ui/ThemedView';
@@ -15,7 +15,10 @@ const CurrentlyScreen = () => {
   const { loading, current } = useWeather();
 
   return (
-    <ThemedView style={[styles.container]}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.containerContent}
+    >
       {geoPosition ? (
         <WeatherHeader geoPosition={geoPosition} />
       ) : (
@@ -54,18 +57,26 @@ const CurrentlyScreen = () => {
       ) : (
         <ThemedText>No current weather data available.</ThemedText>
       )}
-    </ThemedView>
+    </ScrollView>
   );
 };
 
 export default CurrentlyScreen;
 
 const styles = StyleSheet.create({
+  //container: {
+  //  flexDirection: 'column',
+  //  alignItems: 'center',
+  //  margin: 18,
+  //  gap: 18
+  //},
   container: {
-    flexDirection: 'column',
-    alignItems: 'center',
+    flex: 1
+  },
+  containerContent: {
     margin: 18,
-    gap: 18
+    gap: 18,
+    alignItems: 'center'
   },
   warning: {
     flexDirection: 'row',

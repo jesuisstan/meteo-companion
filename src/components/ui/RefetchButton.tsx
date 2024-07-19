@@ -24,7 +24,7 @@ const RefetchButton = () => {
 const styles = StyleSheet.create({
   floatingButton: {
     position: 'absolute',
-    top: '25%',
+    top: '28%',
     right: '5%',
     width: 30,
     height: 30,
@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 2,
-    zIndex: 100, // Ensure it's above other components
-    opacity: 0.7
+    zIndex: 1001, // Ensure it's above other components
+    opacity: 0.6
   }
 });
 

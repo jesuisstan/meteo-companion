@@ -1,7 +1,6 @@
 import { StyleSheet, ScrollView, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-import ThemedView from '@/components/ui/ThemedView';
 import { useGeo } from '@/contexts/GeoContext';
 import { useWeather } from '@/contexts/WeatherContext';
 import WeatherHeader from '@/components/WeatherHeader';
@@ -76,7 +75,8 @@ const styles = StyleSheet.create({
   containerContent: {
     margin: 18,
     gap: 18,
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingBottom: 18
   },
   warning: {
     flexDirection: 'row',

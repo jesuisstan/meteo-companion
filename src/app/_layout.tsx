@@ -1,13 +1,13 @@
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
 import 'react-native-reanimated';
-import { View, StyleSheet, StatusBar } from 'react-native';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+import * as ScreenOrientation from 'expo-screen-orientation';
+import { useEffect } from 'react';
 
-import { C42_VIOLET } from '@/style/Colors';
 import { GeoProvider } from '@/contexts/GeoContext';
 import { WeatherProvider } from '@/contexts/WeatherContext';
+import { NetworkProvider } from '@/contexts/NetworkContext';
+import WeatherApp from '@/components/WeatherApp';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -18,6 +18,9 @@ const RootLayout = () => {
   });
 
   useEffect(() => {
+    // Set the initial screen orientation to allow all orientations
+    ScreenOrientation.unlockAsync();
+
     if (loaded) {
       SplashScreen.hideAsync();
     }
@@ -28,32 +31,14 @@ const RootLayout = () => {
   }
 
   return (
-    <WeatherProvider>
-      <GeoProvider>
-        <View style={styles.container}>
-          <StatusBar
-            animated={true}
-            backgroundColor={C42_VIOLET}
-            barStyle={'dark-content'}
-            showHideTransition={'slide'}
-            hidden={false}
-          />
-          {/* Main Content */}
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" />
-          </Stack>
-        </View>
-      </GeoProvider>
-    </WeatherProvider>
+    <NetworkProvider>
+      <WeatherProvider>
+        <GeoProvider>
+          <WeatherApp />
+        </GeoProvider>
+      </WeatherProvider>
+    </NetworkProvider>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    position: 'relative'
-  }
-});
 
 export default RootLayout;

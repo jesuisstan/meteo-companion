@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react';
-import { View, Dimensions, ImageBackground, StyleSheet } from 'react-native';
+import {
+  View,
+  useWindowDimensions,
+  ImageBackground,
+  StyleSheet
+} from 'react-native';
 import {
   TabView,
   TabBar,
@@ -19,14 +24,13 @@ import { useWeather } from '@/contexts/WeatherContext';
 import shootAlert from '@/utils/shoot-alert';
 import RefetchButton from '@/components/ui/RefetchButton';
 
-const initialLayout = { width: Dimensions.get('window').width };
-const windowHeight = Dimensions.get('window').height;
-
 type RouteProps = Route & { icon: string };
 type State = NavigationState<RouteProps>;
 
 const TabLayout = () => {
   const [index, setIndex] = useState(0);
+  const { width, height } = useWindowDimensions();
+
   const routes = [
     { key: 'currently', title: 'Currently', icon: 'pulse' },
     { key: 'today', title: 'Today', icon: 'today' },
@@ -101,9 +105,9 @@ const TabLayout = () => {
         <RefetchButton />
         <TabView
           navigationState={{ index, routes }}
-          renderScene={windowHeight ? renderScene : () => null}
+          renderScene={height ? renderScene : () => null}
           onIndexChange={setIndex}
-          initialLayout={initialLayout}
+          initialLayout={{ width }}
           renderTabBar={renderTabBar}
           tabBarPosition="bottom"
         />

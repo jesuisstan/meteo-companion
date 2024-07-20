@@ -28,9 +28,8 @@ type RouteProps = Route & { icon: string };
 type State = NavigationState<RouteProps>;
 
 const TabLayout = () => {
-  const [index, setIndex] = useState(0);
   const { width, height } = useWindowDimensions();
-
+  const [index, setIndex] = useState(0);
   const routes = [
     { key: 'currently', title: 'Currently', icon: 'pulse' },
     { key: 'today', title: 'Today', icon: 'today' },
